@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_challenge_dog_api/presentation/widgets/dropdown/dropdown.dart';
 
 import '../../../constant/app_lists.dart';
 import '../../../data/cubits/fetch_dogs_by_breed_cubit.dart';
@@ -17,7 +17,6 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPageState extends State<SecondPage> {
   //selected Breed initial drowdown value
-  String selectedBreed = 'akita';
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,26 +24,25 @@ class _SecondPageState extends State<SecondPage> {
       children: [
         Center(
           child: Column(
-            children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    //dog breed drop down
-                    dropdown(),
-                  ],
-                ),
-              ),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text("Images list by breed"),
               Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: CustomButton(
-                  text: "Images list by breed",
-                  onPressed: () {
-                    context.read<FetchDogsByBreedCubit>().fetchDogsByBreeds(breed: selectedBreed);
-                  },
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: CustomDropDown(
+                  anyList: dogBreeds,
                 ),
-              ),
+              )
             ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: CustomButton(
+            text: "Fetch",
+            onPressed: () {
+              context.read<FetchDogsByBreedCubit>().fetchDogsByBreeds();
+            },
           ),
         ),
         BlocBuilder<FetchDogsByBreedCubit, FetchDogsByBreedState>(
@@ -60,6 +58,7 @@ class _SecondPageState extends State<SecondPage> {
               final response = state.response;
               return Expanded(
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: response.message!.length,
                   itemBuilder: (context, index) {
                     return Container(
@@ -79,24 +78,6 @@ class _SecondPageState extends State<SecondPage> {
           },
         ),
       ],
-    );
-  }
-
-  //Dog breed drop down
-  DropdownButton<String> dropdown() {
-    return DropdownButton<String>(
-      value: selectedBreed,
-      items: dogBreeds.map((String breed) {
-        return DropdownMenuItem<String>(
-          value: breed,
-          child: Text(breed),
-        );
-      }).toList(),
-      onChanged: (String? newValue) {
-        setState(() {
-          selectedBreed = newValue!;
-        });
-      },
     );
   }
 }

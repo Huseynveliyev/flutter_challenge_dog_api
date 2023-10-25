@@ -13,10 +13,10 @@ class FetchDogsByBreedCubit extends Cubit<FetchDogsByBreedState> {
   FetchDogsByBreedCubit() : super(FetchDogsByBreedInitial());
 
    final DogRepository dogRepository = DogRepositorImpl();
-   fetchDogsByBreeds({required String breed}) async {
+   fetchDogsByBreeds() async {
     emit(FetchDogsByBreedProgress());
     try {
-      final response = await dogRepository.fetchDogsByBreeds(breed: breed);
+      final response = await dogRepository.fetchDogsByBreeds();
       emit(FetchDogsByBreedSuccess(response: response));
     } on HttpException catch (e) {
       emit(FetchDogsByBreedFailure(message: e));
