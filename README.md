@@ -1,16 +1,15 @@
-# flutter_challenge_dog_api
 
-A new Flutter project.
+# flutter-challenge doge api 
 
-## Getting Started
+these are the packages that use: 
+// http request package 
+dio: ^5.3.3
 
-This project is a starting point for a Flutter application.
+//state managment solution
+flutter_bloc: ^8.1.3
+equatable: ^2.0.5
 
-A few resources to get you started if this is your first Flutter project:
+The application consists of 4 pages. The binders are processed in ayri on each page in order. A task is placed on each page. The application consists of 2 main layers. These layers are with cirasi: prestation and data layer. The principle of playing the application is as follows:
+Principmentation -> State Management(Cubit) layer -> Repository layer -> >Service layer
+The app is simply stolen like this. I tried to write in the cleanest way.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
