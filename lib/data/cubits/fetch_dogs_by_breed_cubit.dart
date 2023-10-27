@@ -4,16 +4,13 @@ import 'package:flutter_challenge_dog_api/data/models/image_list_by_breed.dart';
 import '../exception/http_exception.dart';
 import '../repository/dog_repository.dart';
 
-
-
-
 part 'fetch_dogs_by_breed_state.dart';
 
-class FetchDogsByBreedCubit extends Cubit<FetchDogsByBreedState> {
-  FetchDogsByBreedCubit() : super(FetchDogsByBreedInitial());
+class ImageListByBreedCubit extends Cubit<FetchDogsByBreedState> {
+  ImageListByBreedCubit() : super(FetchDogsByBreedInitial());
 
-   final DogRepository dogRepository = DogRepositorImpl();
-   fetchDogsByBreeds() async {
+  final DogRepository dogRepository = DogRepositorImpl();
+  fetchDogsByBreeds() async {
     emit(FetchDogsByBreedProgress());
     try {
       final response = await dogRepository.fetchDogsByBreeds();

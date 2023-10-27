@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'dart:core';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+
 import '../../constant/config.dart';
+
 import '../../presentation/widgets/dropdown/dropdown.dart';
 import '../exception/http_exception.dart';
 import '../logging/dio_interceptor.dart';
@@ -12,14 +17,13 @@ class ApiService {
   ApiService() {
     //add base url in dio package
     _dio.options.baseUrl = ApiConfigs.baseUrl;
-   // add dio interceptor(logger) in dio package
+    // add dio interceptor(logger) in dio package
     _dio.interceptors.add(DioInterceptor());
   }
 
 //Fetch random image by breed
   Future<SingleBreedRandomModel> fetchSingleRandomBreed() async {
     try {
-       
       // https://dog.ceo/api/breed/Affenpinscher/images/random
       //breeds/image/random
       final response = await _dio.get("breed/$selectedBreed/images/random");
@@ -39,16 +43,58 @@ class ApiService {
     }
   }
 
-
 //Fetch image list by breed
-Future<ImageListByBreedModel> fetchDogsByBreeds() async {
+  Future<ImageListByBreedModel> fetchDogsByBreeds() async {
     try {
       final response = await _dio.get("/breed/$selectedBreed/images");
       if (kDebugMode) {
         print(response.data);
       }
       if (response.statusCode == 200) {
-        return ImageListByBreedModel.fromJson(response.data) ;
+        return ImageListByBreedModel.fromJson(response.data);
+      } else {
+        throw HttpException(message: response.statusMessage ?? "HTTP Error");
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
+      throw HttpException(message: e.message ?? '');
+    }
+  }
+
+//Random image by breed and sub breed
+//SingleBreedRandomModel, which pushes me a single string in kind, can use this model again.
+  Future<SingleBreedRandomModel> fetchImageByBreedAndSub({required String selectedBreed,required String selectedSubBreed}) async {
+    try {
+      final response = await _dio.get('breed/$selectedBreed/$selectedSubBreed/images/random');
+      if (kDebugMode) {
+        print(response.data);
+      }
+      if (response.statusCode == 200) {
+        return SingleBreedRandomModel.fromJson(response.data);
+      } else {
+        throw HttpException(message: response.statusMessage ?? "HTTP Error");
+      }
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
+      throw HttpException(message: e.message ?? '');
+    }
+  }
+
+
+//Image list breed and sub breed 
+// ImageListByBreedModel, which pushes me a single string in kind, can use this model again.
+  Future<ImageListByBreedModel> fetchImageListByBreedAndSubBreed({required String selectedBreed,required String selectedSubBreed}) async {
+    try {
+      final response = await _dio.get('breed/$selectedBreed/$selectedSubBreed/images/');
+      if (kDebugMode) {
+        print(response.data);
+      }
+      if (response.statusCode == 200) {
+        return ImageListByBreedModel.fromJson(response.data);
       } else {
         throw HttpException(message: response.statusMessage ?? "HTTP Error");
       }

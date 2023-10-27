@@ -15,7 +15,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 160,
+      width: 180,
       height: 60,
       child: InputDecorator(
         decoration: InputDecoration(
@@ -34,7 +34,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
           }).toList(),
           onChanged: (String? newValue) {
             setState(() {
-              selectedBreed = newValue!;
+               selectedBreed = newValue!; 
+          
+              
             });
           },
           underline: Container(), // Alt çizgiyi kaldır

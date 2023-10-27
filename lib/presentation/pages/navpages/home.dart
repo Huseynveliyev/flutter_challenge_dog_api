@@ -19,19 +19,19 @@ class HomePage extends StatelessWidget {
           const Text('Random Image by breed'),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
-            child: CustomDropDown(anyList: dogBreeds),
+            child: CustomDropDown(anyList: breedKeys),
           ),
           CustomButton(
             text: "Fetch",
             onPressed: () {
               // ApiService apiService = ApiService();
               // apiService.fetchSingleRandomBreed();
-              context.read<FetchRandomBreedCubit>().fetchSingleRandomBreed();
+              context.read<RandomImageByBreedCubit>().fetchSingleRandomBreed();
               // DogRepository repository = getIt.get();
               // repository.fetchSingleRandomBreed();
             },
           ),
-          BlocBuilder<FetchRandomBreedCubit, FetchRandomBreedState>(
+          BlocBuilder<RandomImageByBreedCubit, FetchRandomBreedState>(
             builder: (context, state) {
               if (state is FetchRandomBreedProgress) {
                 return const Padding(

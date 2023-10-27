@@ -30,7 +30,7 @@ class _SecondPageState extends State<SecondPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: CustomDropDown(
-                  anyList: dogBreeds,
+                  anyList: breedKeys,
                 ),
               )
             ],
@@ -41,11 +41,11 @@ class _SecondPageState extends State<SecondPage> {
           child: CustomButton(
             text: "Fetch",
             onPressed: () {
-              context.read<FetchDogsByBreedCubit>().fetchDogsByBreeds();
+              context.read<ImageListByBreedCubit>().fetchDogsByBreeds();
             },
           ),
         ),
-        BlocBuilder<FetchDogsByBreedCubit, FetchDogsByBreedState>(
+        BlocBuilder<ImageListByBreedCubit, FetchDogsByBreedState>(
           builder: (context, state) {
             if (state is FetchDogsByBreedProgress) {
               return const Padding(

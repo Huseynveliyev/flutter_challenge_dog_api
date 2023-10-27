@@ -14,8 +14,19 @@ class MainPage extends StatelessWidget {
       bottomNavigationBar: BottomBar(bottomNavIndex: bottomNavIndex),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Dog Api challenge",
+        title: Container(
+          alignment: Alignment.center,
+          width: 200,
+          height: 50,
+          decoration: BoxDecoration(
+            color: Colors.deepPurple.withOpacity(0.25),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+          ),
+          child: const Text(
+            "Dog Api challenge",
+          ),
         ),
       ),
       body: ValueListenableBuilder(
