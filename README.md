@@ -2,10 +2,10 @@
 # flutter-challenge doge api 
 
 these are the packages that use: 
-// http request package 
+http request package 
 dio: ^5.3.3
 
-//state managment solution
+state managment solution
 flutter_bloc: ^8.1.3 and equatable
 
 
