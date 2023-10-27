@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:chalkdart/chalk.dart';
-import 'package:chalkdart/chalk_x11.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 class DioInterceptor extends Interceptor {
@@ -17,10 +15,10 @@ class DioInterceptor extends Interceptor {
       log(
         name: '  Request ',
         '''
-${chalk.white.onDarkBlue('Url       : [${options.method}] ${options.baseUrl}${options.path}$queryParamteres')}
-${chalk.white.onDarkBlue('Data      : ${options.data}')}
-${chalk.white.onDarkBlue('Token     : ${options.headers["Authorization"]}')}
-${chalk.white.onDarkBlue('Language  : ${options.headers["Accept-Language"]}')}
+${('Url       : [${options.method}] ${options.baseUrl}${options.path}$queryParamteres')}
+${('Data      : ${options.data}')}
+${('Token     : ${options.headers["Authorization"]}')}
+${('Language  : ${options.headers["Accept-Language"]}')}
 ''',
       );
     }
@@ -31,12 +29,12 @@ ${chalk.white.onDarkBlue('Language  : ${options.headers["Accept-Language"]}')}
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (kDebugMode) {
       log(name: '   Error  ', '''
-${chalk.white.onDarkRed('StatusCode: ${err.response?.statusCode}')}
-${chalk.white.onDarkRed('StatusMsg : ${err.response?.statusMessage}')}
-${chalk.white.onDarkRed('Message   : ${err.message}')}
-${chalk.white.onDarkRed('Type      : ${err.type}')}
-${chalk.white.onDarkRed('Data      : ${err.response?.data}')}
-${chalk.white.onDarkRed('Headers   : ${err.response?.headers}')}
+${('StatusCode: ${err.response?.statusCode}')}
+${('StatusMsg : ${err.response?.statusMessage}')}
+${('Message   : ${err.message}')}
+${('Type      : ${err.type}')}
+${('Data      : ${err.response?.data}')}
+${('Headers   : ${err.response?.headers}')}
 ''');
     }
     super.onError(err, handler);
@@ -46,10 +44,10 @@ ${chalk.white.onDarkRed('Headers   : ${err.response?.headers}')}
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (kDebugMode) {
       log(name: ' Response ', '''
-${chalk.white.onDarkGreen('Url       : [${response.requestOptions.method}] ${response.requestOptions.path}')}
-${chalk.white.onDarkGreen('StatusCode: ${response.statusCode}')}
-${chalk.white.onDarkGreen('StatusMsg : ${response.statusMessage}')}
-${chalk.darkGreen.onWhite('Data      : ${prettyJson(response.data)}')}
+${('Url       : [${response.requestOptions.method}] ${response.requestOptions.path}')}
+${('StatusCode: ${response.statusCode}')}
+${('StatusMsg : ${response.statusMessage}')}
+${('Data      : ${prettyJson(response.data)}')}
 ''');
     }
     super.onResponse(response, handler);
